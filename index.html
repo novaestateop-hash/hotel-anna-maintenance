@@ -5,21 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hotel Anna – Hilden</title>
   <meta name="robots" content="noindex" />
-  <meta name="description" content="Die Website des Hotel Anna in Hilden wird derzeit neu gestaltet. Buchen Sie Ihren Aufenthalt weiterhin über Booking.com oder Expedia." />
+  <meta name="description" content="Die Website des Hotel Anna in Hilden wird derzeit neu gestaltet. Buchen Sie über Booking.com oder Expedia, oder kontaktieren Sie uns direkt per WhatsApp oder E-Mail." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --ink:#1c1917; --gold:#c4a882; --bronze:#8b6b4a; --cream:#faf9f5; --muted:#d8cfc2;
-    }
+    :root{ --ink:#1c1917; --gold:#c4a882; --bronze:#8b6b4a; --cream:#faf9f5; --muted:#d8cfc2; --wa:#25D366; }
     *{box-sizing:border-box;margin:0;padding:0;}
     html,body{height:100%;}
     body{
       font-family:"DM Sans",system-ui,sans-serif; color:var(--cream);
       min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px;
       background:
-        linear-gradient(180deg, rgba(28,25,23,.72) 0%, rgba(28,25,23,.82) 55%, rgba(28,25,23,.92) 100%),
+        linear-gradient(180deg, rgba(28,25,23,.66) 0%, rgba(28,25,23,.78) 55%, rgba(28,25,23,.90) 100%),
         url("hero.jpg") center/cover no-repeat fixed;
     }
     .wrap{ max-width:600px; text-align:center; }
@@ -28,18 +26,23 @@
     .city{ font-size:13px; letter-spacing:.42em; text-transform:uppercase; color:var(--gold); margin-top:14px; }
     .rule{ width:54px; height:1px; background:var(--gold); opacity:.6; margin:30px auto; }
     .headline{ font-family:"Cormorant",Georgia,serif; font-style:italic; font-weight:400; font-size:clamp(22px,4.5vw,30px); color:var(--cream); margin-bottom:18px; }
-    .lead{ font-size:16px; line-height:1.75; color:var(--muted); max-width:460px; margin:0 auto 34px; }
+    .lead{ font-size:16px; line-height:1.75; color:var(--muted); max-width:460px; margin:0 auto 30px; }
     .btns{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-    .btn{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-weight:500; font-size:15px;
+    .btn{ display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:500; font-size:15px;
       padding:14px 30px; border-radius:999px; letter-spacing:.02em; transition:transform .15s ease, background .2s ease, color .2s ease; }
     .btn:hover{ transform:translateY(-2px); }
     .btn-primary{ background:var(--gold); color:var(--ink); }
     .btn-primary:hover{ background:#d4ba94; }
     .btn-outline{ border:1px solid var(--gold); color:var(--gold); }
     .btn-outline:hover{ background:var(--gold); color:var(--ink); }
-    .contact{ margin-top:40px; font-size:14px; color:var(--muted); }
-    .contact a{ color:var(--gold); text-decoration:none; }
-    .contact a:hover{ text-decoration:underline; }
+    .btn-whatsapp{ background:var(--wa); color:#fff; }
+    .btn-whatsapp:hover{ background:#1fbe5a; }
+    .btn svg{ width:18px; height:18px; }
+    .contact{ margin-top:38px; padding-top:28px; border-top:1px solid rgba(255,255,255,.10); }
+    .contact-lead{ font-size:14px; letter-spacing:.04em; color:var(--muted); margin-bottom:18px; }
+    .contact-links{ margin-top:20px; font-size:14px; color:var(--muted); line-height:1.9; }
+    .contact-links a{ color:var(--gold); text-decoration:none; }
+    .contact-links a:hover{ text-decoration:underline; }
     .foot{ margin-top:30px; font-size:12px; letter-spacing:.1em; color:rgba(216,207,194,.45); }
   </style>
 </head>
@@ -58,13 +61,21 @@
     </p>
 
     <div class="btns">
-      <!-- TODO: bei Bedarf durch die direkten Property-Links ersetzen -->
       <a class="btn btn-primary" href="https://www.booking.com/searchresults.de.html?ss=Hotel%20Anna%20Hilden" target="_blank" rel="noopener">Auf Booking.com buchen</a>
       <a class="btn btn-outline" href="https://www.expedia.de/Hotel-Search?destination=Hotel%20Anna%20Hilden" target="_blank" rel="noopener">Auf Expedia buchen</a>
     </div>
 
     <div class="contact">
-      Fragen oder direkte Anfrage? Schreiben Sie uns an <a href="mailto:anna@nova-hotels.de">anna@nova-hotels.de</a>
+      <p class="contact-lead">Lieber direkt? Schreiben Sie uns – wir antworten schnell:</p>
+      <div class="btns">
+        <a class="btn btn-whatsapp" href="https://wa.me/4915792358806" target="_blank" rel="noopener" aria-label="Per WhatsApp schreiben">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.045zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Per WhatsApp schreiben
+        </a>
+      </div>
+      <p class="contact-links">
+        <a href="mailto:anna@nova-hotels.de">anna@nova-hotels.de</a>
+      </p>
     </div>
 
     <div class="foot">© Hotel Anna · Hilden</div>
