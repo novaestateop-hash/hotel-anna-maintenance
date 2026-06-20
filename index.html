@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Hotel Anna · Hilden</title>
 
 <!--
@@ -117,8 +117,11 @@
     letter-spacing: .14em; text-transform: uppercase; font-weight: 400;
   }
   .anna__nav { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); }
-  .anna__lang { font-size: 12px; letter-spacing: .18em; color: var(--col-dim); }
-  .anna__lang b { color: var(--col-ink); font-weight: 600; }
+  .anna__lang { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; letter-spacing: .18em; }
+  .anna__langbtn { background: none; border: 0; padding: 2px 1px; cursor: pointer; font: inherit; letter-spacing: inherit; color: var(--col-dim); transition: color .3s ease; }
+  .anna__langbtn.is-on { color: var(--col-ink); font-weight: 600; }
+  .anna__langbtn:hover { color: var(--col-ink); }
+  .anna__langsep { color: var(--col-dim); opacity: .55; }
   .anna__cta {
     font-family: var(--font-label); font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
     color: var(--col-deep); background: var(--col-ink); text-decoration: none;
@@ -232,7 +235,11 @@
     <header class="anna__bar">
       <div class="anna__logo">Anna</div>
       <nav class="anna__nav">
-        <span class="anna__lang"><b>DE</b> · EN</span>
+        <div class="anna__lang">
+          <button type="button" class="anna__langbtn is-on" data-setlang="de">DE</button>
+          <span class="anna__langsep">·</span>
+          <button type="button" class="anna__langbtn" data-setlang="en">EN</button>
+        </div>
       </nav>
     </header>
 
@@ -241,7 +248,7 @@
       <div class="anna__eyebrow"><span>Hotel <b class="anna__stars" aria-label="Drei-Sterne-Hotel">★★★</b> · Düsseldorf · Hilden</span></div>
       <h1 class="anna__name"><span class="anna-mask"><span>Anna</span></span></h1>
       <div class="anna__line"></div>
-      <p class="anna__tag">Unsere neue Website entsteht gerade. Bis dahin sind wir direkt für Sie da — persönlich, unkompliziert und zum besten Preis.</p>
+      <p class="anna__tag" data-i18n="tag">Unsere neue Website entsteht gerade. Bis dahin sind wir direkt für Sie da — persönlich, unkompliziert und zum besten Preis.</p>
 
       <div class="anna__contact">
         <a class="anna__btn" href="https://wa.me/4915792358806">
@@ -250,20 +257,20 @@
         </a>
         <a class="anna__btn" href="tel:+4915792358806">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v2a2 2 0 0 1-2 2A16 16 0 0 1 3 7a2 2 0 0 1 2-3Z"/></svg>
-          Anrufen
+          <span data-i18n="call">Anrufen</span>
         </a>
         <a class="anna__btn" href="mailto:anna@nova-hotels.de">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          E-Mail
+          <span data-i18n="email">E-Mail</span>
         </a>
-        <span class="anna__ota">Auch auf <a href="https://www.booking.com/hotel/de/anna-hilden-hilden1.html" target="_blank" rel="noopener noreferrer">Booking.com</a> &amp; <a href="https://www.expedia.de/Hilden-Hotels-Hotel-Anna-Hilden.h120766128.Hotel-Information" target="_blank" rel="noopener noreferrer">Expedia</a></span>
+        <span class="anna__ota"><span data-i18n="otaPre">Auch auf</span> <a href="https://www.booking.com/hotel/de/anna-hilden-hilden1.html" target="_blank" rel="noopener noreferrer">Booking.com</a> &amp; <a href="https://www.expedia.de/Hilden-Hotels-Hotel-Anna-Hilden.h120766128.Hotel-Information" target="_blank" rel="noopener noreferrer">Expedia</a></span>
       </div>
     </div>
     </div>
 
     <footer class="anna__footer">
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Datenschutz</a>
+      <a href="impressum.html" data-i18n="impressum">Impressum</a>
+      <a href="datenschutz.html" data-i18n="datenschutz">Datenschutz</a>
     </footer>
     </div>
   </main>
@@ -272,6 +279,33 @@
   (function () {
     var root = document.getElementById('anna');
     if (root) requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.add('is-in'); }); });
+
+    /* ——— Sprache DE/EN (live umschaltbar, Auswahl gemerkt) ——— */
+    var I18N = {
+      de: { tag: "Unsere neue Website entsteht gerade. Bis dahin sind wir direkt für Sie da — persönlich, unkompliziert und zum besten Preis.",
+            call: "Anrufen", email: "E-Mail", otaPre: "Auch auf", impressum: "Impressum", datenschutz: "Datenschutz" },
+      en: { tag: "Our new website is on its way. Until then, we're here for you directly — personal, easy and at the best rate.",
+            call: "Call", email: "Email", otaPre: "Also on", impressum: "Legal notice", datenschutz: "Privacy" }
+    };
+    function setLang(l) {
+      if (!I18N[l]) l = 'de';
+      document.documentElement.lang = l;
+      var d = I18N[l];
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var k = el.getAttribute('data-i18n');
+        if (d[k] != null) el.textContent = d[k];
+      });
+      document.querySelectorAll('.anna__langbtn').forEach(function (b) {
+        b.classList.toggle('is-on', b.getAttribute('data-setlang') === l);
+      });
+      try { localStorage.setItem('annaLang', l); } catch (e) {}
+    }
+    document.querySelectorAll('.anna__langbtn').forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.getAttribute('data-setlang')); });
+    });
+    var savedLang = 'de';
+    try { savedLang = localStorage.getItem('annaLang') || 'de'; } catch (e) {}
+    setLang(savedLang);
 
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var slides = Array.prototype.slice.call(document.querySelectorAll('.anna-slide'));
