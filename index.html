@@ -97,7 +97,8 @@
 
   /* ——— UI-GERÜST (Flex-Spalte + iOS-Safe-Areas → kein Abschneiden oben/unten) ——— */
   .anna__ui {
-    position: absolute; inset: 0; z-index: 5;
+    position: absolute; top: 0; left: 0; right: 0; z-index: 5;
+    height: 100svh;                 /* sichtbare Höhe inkl. Browserleiste → Footer wird nicht von Safari-Leiste verdeckt */
     display: flex; flex-direction: column;
     padding-top: env(safe-area-inset-top);
     padding-bottom: max(env(safe-area-inset-bottom), 6px);
@@ -195,7 +196,6 @@
 
   @media (max-width: 640px) {
     .anna__tag { max-width: 34ch; }
-    .anna__lang { display: none; }
     .anna__eyebrow { font-size: 10px; letter-spacing: .2em; gap: 9px; }
     .anna__eyebrow::before { width: 18px; }
     .anna__name { font-size: clamp(56px, 18vw, 92px); }
