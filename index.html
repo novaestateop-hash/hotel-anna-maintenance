@@ -1,109 +1,271 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hotel Anna – Hilden</title>
-  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-  <meta name="description" content="Hotel Anna in Hilden – buchen Sie am besten direkt bei uns per WhatsApp, Telefon oder E-Mail. Alternativ über Booking.com oder Expedia." />
-  <link rel="stylesheet" href="/fonts/fonts.css" />
-  <style>
-    :root{ --ink:#1c1917; --gold:#c4a882; --cream:#faf9f5; --muted:#cfc6b8; }
-    *{box-sizing:border-box;margin:0;padding:0;}
-    html,body{min-height:100%;}
-    body{ font-family:"DM Sans",system-ui,sans-serif; color:var(--cream); background:var(--ink);
-      min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 24px; position:relative; }
-    .collage{ position:fixed; inset:0; z-index:0; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); }
-    .collage img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .overlay{ position:fixed; inset:0; z-index:1;
-      background: radial-gradient(ellipse at center, rgba(28,25,23,.66) 0%, rgba(28,25,23,.88) 72%, rgba(28,25,23,.95) 100%); }
-    @media (max-width:640px){ .collage{ grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(4,1fr); } .collage img:nth-child(n+9){ display:none; } }
-    .wrap{ position:relative; z-index:2; max-width:640px; text-align:center; }
-    .eyebrow{ font-size:12px; letter-spacing:.32em; text-transform:uppercase; color:var(--gold); margin-bottom:22px; }
-    .brand{ font-family:"Cormorant",Georgia,serif; font-weight:500; font-size:clamp(46px,9vw,76px); line-height:1; text-shadow:0 2px 30px rgba(0,0,0,.5); }
-    .city{ font-size:13px; letter-spacing:.42em; text-transform:uppercase; color:var(--gold); margin-top:14px; }
-    .stars{ display:flex; justify-content:center; align-items:center; gap:7px; margin-top:14px; }
-    .stars svg{ width:16px; height:16px; color:var(--gold); filter:drop-shadow(0 1px 6px rgba(0,0,0,.4)); }
-    .rule{ width:54px; height:1px; background:var(--gold); opacity:.6; margin:28px auto; }
-    .headline{ font-family:"Cormorant",Georgia,serif; font-style:italic; font-weight:400; font-size:clamp(21px,4.2vw,28px); margin-bottom:14px; text-shadow:0 2px 20px rgba(0,0,0,.5); }
-    .lead{ font-size:16px; line-height:1.7; color:var(--muted); max-width:480px; margin:0 auto; }
-    .label{ font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin:0 0 16px; opacity:.9; }
-    .btns{ display:flex; gap:13px; justify-content:center; flex-wrap:wrap; }
-    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; text-decoration:none;
-      font-family:"DM Sans",sans-serif; font-weight:600; line-height:1; cursor:pointer; border:1px solid transparent;
-      transition:transform .15s ease, background .2s ease, border-color .2s ease, color .2s ease; }
-    .btn:hover{ transform:translateY(-2px); }
-    /* GROSS & primär — Direktbuchung */
-    .btn-lg{ font-size:16.5px; padding:18px 30px; border-radius:16px; }
-    .btn-lg svg{ width:21px; height:21px; flex:0 0 auto; }
-    .btn-primary{ background:var(--gold); color:#211d18; border-color:var(--gold); box-shadow:0 8px 30px rgba(0,0,0,.28); }
-    .btn-primary:hover{ background:#d6bd97; border-color:#d6bd97; }
-    /* klein & dezent — OTA-Alternative */
-    .btn-sm{ font-size:13.5px; font-weight:500; padding:10px 18px; border-radius:12px; }
-    .btn-sm svg{ width:15px; height:15px; flex:0 0 auto; color:var(--gold); }
-    .btn-ghost{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18); color:var(--cream); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
-    .btn-ghost:hover{ background:rgba(255,255,255,.13); border-color:rgba(255,255,255,.30); }
-    .primary-block{ margin-top:30px; }
-    .alt-block{ margin-top:34px; padding-top:26px; border-top:1px solid rgba(255,255,255,.12); }
-    .alt-block .label{ font-size:11.5px; opacity:.75; }
-    .foot{ margin-top:40px; font-size:12px; letter-spacing:.06em; color:rgba(207,198,184,.6); }
-    .foot a{ color:var(--gold); text-decoration:none; } .foot a:hover{ text-decoration:underline; }
-    .foot .sep{ opacity:.4; margin:0 10px; } .foot .copy{ display:block; margin-top:10px; opacity:.7; letter-spacing:.1em; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hotel Anna · Hilden</title>
+
+<!--
+  HOTEL ANNA — AWAITING-PAGE (self-contained, eine Fullscreen-Seite, KEIN Scroll)
+  ------------------------------------------------------------------------------
+  Dauerhaft laufende Ambient-Animation: weicher Bild-Wechsel (Ken-Burns + Crossfade),
+  driftendes warmes Licht, feiner Filmkorn. Plus Direktbuchungs-/Kontakt-Funktion.
+
+  EURE BILDER EINSETZEN  →  unten im Markup die drei .anna-slide style="background-image:url(...)"
+                            ersetzen (beliebig viele Slides möglich, einfach duplizieren).
+  FARBWELT / FONTS / KONTAKT → alles oben in :root bzw. klar markiert im Markup.
+-->
+
+<!-- Fonts lokal selbst-gehostet (keine Google-Verbindung — GDPR, vgl. Datenschutz §13) -->
+<link rel="stylesheet" href="fonts.css" />
+
+<style>
+  html, body { height: 100%; }
+  body { margin: 0; overflow: hidden; background: #1a1410; }
+  .anna, .anna * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .anna {
+    /* ——— TAUSCHBARE WERTE ——— */
+    --col-ink:  #f4ece0;
+    --col-dim:  #cbb89f;
+    --col-gold: #c9a36a;
+    --col-deep: #1a1410;
+    --font-display: "Fraunces", Georgia, serif;
+    --font-label:   "Montserrat", "Avenir Next", Avenir, system-ui, sans-serif;
+
+    position: fixed; inset: 0;
+    overflow: hidden;
+    background: var(--col-deep);
+    color: var(--col-ink);
+    font-family: var(--font-label);
+    isolation: isolate;
+  }
+
+  /* ——— BILD-SLIDESHOW (Crossfade + endloser Ken-Burns) ——— */
+  .anna__slides { position: absolute; inset: 0; z-index: 0; }
+  .anna-slide {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    filter: brightness(0.6) saturate(1.03);
+    opacity: 0; transition: opacity 2.4s ease;
+    will-change: opacity, transform;
+    animation: anna-ken 26s ease-in-out infinite alternate;
+  }
+  .anna-slide.is-active { opacity: 1; }
+  .anna-slide:nth-child(2) { animation-direction: alternate-reverse; }
+  .anna-slide:nth-child(3) { animation-delay: -13s; }
+  .anna-slide:nth-child(4) { animation-delay: -7s; animation-direction: alternate-reverse; }
+  @keyframes anna-ken {
+    0%   { transform: scale(1.04) translate(0, 0); }
+    100% { transform: scale(1.16) translate(-1.5%, -1.5%); }
+  }
+
+  .anna__scrim {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(26,20,16,.55) 0%, rgba(26,20,16,.05) 30%, rgba(26,20,16,.2) 58%, rgba(26,20,16,.9) 100%),
+      radial-gradient(120% 80% at 50% 120%, rgba(201,163,106,.22), transparent 60%);
+  }
+
+  /* ——— LEBENDIGES LICHT ——— */
+  .anna__glow {
+    position: absolute; z-index: 2;
+    width: 90vmax; height: 90vmax; left: 50%; top: 78%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(214,170,104,.40) 0%, rgba(214,170,104,.12) 35%, transparent 62%);
+    transform: translate(-50%, -50%); mix-blend-mode: screen; filter: blur(8px);
+    animation: anna-drift 16s ease-in-out infinite alternate; pointer-events: none;
+  }
+  @keyframes anna-drift {
+    0%   { transform: translate(-62%, -52%) scale(1);    opacity: .9; }
+    50%  { transform: translate(-42%, -46%) scale(1.12); opacity: 1;  }
+    100% { transform: translate(-58%, -56%) scale(1.05); opacity: .85;}
+  }
+
+  /* ——— FILMKORN ——— */
+  .anna__grain {
+    position: absolute; inset: -50%; z-index: 3; width: 200%; height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .05; mix-blend-mode: overlay;
+    animation: anna-grain 1.1s steps(4) infinite; pointer-events: none;
+  }
+  @keyframes anna-grain {
+    0%{transform:translate(0,0)} 25%{transform:translate(-3%,2%)}
+    50%{transform:translate(2%,-3%)} 75%{transform:translate(-2%,-2%)} 100%{transform:translate(2%,3%)}
+  }
+
+  /* ——— TOPBAR ——— */
+  .anna__bar {
+    position: absolute; z-index: 6; inset: 0 0 auto 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: clamp(18px, 3.4vw, 40px) clamp(20px, 5vw, 64px);
+    opacity: 0; transform: translateY(-12px);
+  }
+  .anna__logo {
+    font-family: var(--font-display); font-size: clamp(18px, 2.1vw, 24px);
+    letter-spacing: .14em; text-transform: uppercase; font-weight: 400;
+  }
+  .anna__nav { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); }
+  .anna__lang { font-size: 12px; letter-spacing: .18em; color: var(--col-dim); }
+  .anna__lang b { color: var(--col-ink); font-weight: 600; }
+  .anna__cta {
+    font-family: var(--font-label); font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--col-deep); background: var(--col-ink); text-decoration: none;
+    padding: 11px 20px; border-radius: 999px;
+    transition: transform .35s ease, background .35s ease, color .35s ease;
+  }
+  .anna__cta:hover { background: var(--col-gold); color: #1a1410; transform: translateY(-1px); }
+
+  /* ——— TEXTBLOCK (unten links) ——— */
+  .anna__content {
+    position: absolute; z-index: 5;
+    left: clamp(20px, 5vw, 64px); bottom: clamp(40px, 9vh, 96px); right: clamp(20px, 5vw, 64px);
+  }
+  .anna__eyebrow {
+    font-size: clamp(11px, 1.2vw, 13px); letter-spacing: .42em; text-transform: uppercase;
+    color: var(--col-gold); display: flex; align-items: center; gap: 14px;
+    opacity: 0; transform: translateY(14px);
+  }
+  .anna__eyebrow::before { content:""; width: 34px; height: 1px; background: var(--col-gold); opacity:.7; flex:0 0 auto; }
+  .anna__stars { color: var(--col-gold); font-size: 1.05em; letter-spacing: .22em; font-weight: 400; }
+
+  .anna__name {
+    font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(66px, 15vw, 200px); line-height: .9; letter-spacing: -0.01em;
+    margin: clamp(8px, 1.4vh, 16px) 0 clamp(12px, 1.6vh, 20px) -0.03em;
+  }
+  .anna-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+  .anna-mask > span { display: inline-block; transform: translateY(112%); will-change: transform; }
+
+  .anna__line { width: 1px; height: 0; background: var(--col-gold); opacity:.8; margin: 2px 0 16px 6px; }
+
+  .anna__tag {
+    max-width: 40ch; font-size: clamp(14px, 1.4vw, 18px); line-height: 1.55; color: var(--col-dim);
+    opacity: 0; transform: translateY(14px);
+  }
+
+  /* ——— KONTAKT / DIREKTBUCHUNG ——— */
+  .anna__contact {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+    margin-top: clamp(18px, 2.4vh, 26px);
+    opacity: 0; transform: translateY(14px);
+  }
+  .anna__btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 13px; letter-spacing: .04em; text-decoration: none; color: var(--col-ink);
+    border: 1px solid rgba(244,236,224,.28); border-radius: 999px;
+    padding: 10px 18px; transition: border-color .3s ease, background .3s ease, transform .3s ease;
+  }
+  .anna__btn:hover { border-color: var(--col-gold); background: rgba(201,163,106,.12); transform: translateY(-1px); }
+  .anna__btn svg { width: 16px; height: 16px; opacity: .85; }
+  .anna__ota { font-size: 12px; color: var(--col-dim); letter-spacing: .03em; margin-left: 4px; }
+  .anna__ota a { color: var(--col-dim); text-underline-offset: 3px; }
+
+  /* ——— FOOTER (Recht) ——— */
+  .anna__footer {
+    position: absolute; z-index: 5; bottom: clamp(16px, 2.6vh, 26px);
+    right: clamp(20px, 5vw, 64px);
+    display: flex; gap: 18px; align-items: center;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    opacity: 0;
+  }
+  .anna__footer a { color: var(--col-dim); text-decoration: none; transition: color .3s ease; }
+  .anna__footer a:hover { color: var(--col-gold); }
+  .anna.is-in .anna__footer { opacity: 1; transition: opacity 1s ease 1.8s; }
+  @media (max-width: 640px) {
+    .anna__footer { left: clamp(20px, 5vw, 64px); right: auto; bottom: 16px; }
+  }
+
+  /* ——— ENTRANCE (einmalig beim Laden; Ambient läuft danach dauerhaft weiter) ——— */
+  .anna.is-in .anna__bar     { opacity: 1; transform: none; transition: opacity 1s ease .2s, transform 1s ease .2s; }
+  .anna.is-in .anna__eyebrow { opacity: 1; transform: none; transition: opacity .9s ease .5s, transform .9s ease .5s; }
+  .anna.is-in .anna-mask > span { transform: translateY(0); transition: transform 1.05s cubic-bezier(.16,1,.3,1) .62s; }
+  .anna.is-in .anna__line    { height: 44px; transition: height 1s ease 1.15s; }
+  .anna.is-in .anna__tag     { opacity: 1; transform: none; transition: opacity 1s ease 1.3s, transform 1s ease 1.3s; }
+  .anna.is-in .anna__contact { opacity: 1; transform: none; transition: opacity 1s ease 1.55s, transform 1s ease 1.55s; }
+
+  @media (max-width: 640px) {
+    .anna__tag { max-width: 32ch; }
+    .anna__lang { display: none; }
+  }
+
+  /* ——— REDUCED MOTION: ruhig, ein Standbild, kein Wechsel ——— */
+  @media (prefers-reduced-motion: reduce) {
+    .anna__glow, .anna__grain, .anna-slide { animation: none; }
+    .anna-slide { transform: scale(1.04); }
+    .anna-mask > span { transform: none; }
+    .anna__bar, .anna__eyebrow, .anna__tag, .anna__contact { opacity: 1 !important; transform: none !important; }
+    .anna__line { height: 44px; }
+  }
+</style>
 </head>
 <body>
-  <div class="collage" aria-hidden="true">
-    <img src="img/photo1.jpg" alt="" /><img src="img/photo2.jpg" alt="" /><img src="img/photo3.jpg" alt="" /><img src="img/photo4.jpg" alt="" /><img src="img/photo5.jpg" alt="" /><img src="img/photo6.jpg" alt="" /><img src="img/photo7.jpg" alt="" /><img src="img/photo8.jpg" alt="" /><img src="img/photo9.jpg" alt="" />
-  </div>
-  <div class="overlay" aria-hidden="true"></div>
 
-  <main class="wrap">
-    <div class="eyebrow">Willkommen</div>
-    <div class="brand">Hotel Anna</div>
-    <div class="city">Hilden</div>
-    <div class="stars" role="img" aria-label="Drei-Sterne-Hotel"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.401 8.168L12 18.896l-7.335 3.869 1.401-8.168L.132 9.21l8.2-1.192z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.401 8.168L12 18.896l-7.335 3.869 1.401-8.168L.132 9.21l8.2-1.192z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.401 8.168L12 18.896l-7.335 3.869 1.401-8.168L.132 9.21l8.2-1.192z"/></svg></div>
+  <main class="anna" id="anna">
+    <div class="anna__slides" id="annaSlides">
+      <!-- EURE FOTOS (Hotel Anna, prof. Shoot 2026 — in /img; beliebig tauschen/ergänzen) -->
+      <div class="anna-slide is-active" style="background-image:url('img/outside.jpg')"></div>
+      <div class="anna-slide"           style="background-image:url('img/dsc725.jpg')"></div>
+      <div class="anna-slide"           style="background-image:url('img/zimmer.jpg')"></div>
+      <div class="anna-slide"           style="background-image:url('img/dsc729.jpg')"></div>
+    </div>
 
-    <div class="rule"></div>
+    <div class="anna__scrim"></div>
+    <div class="anna__glow"></div>
+    <div class="anna__grain"></div>
 
-    <h1 class="headline">Unsere Website wird derzeit neu gestaltet.</h1>
-    <p class="lead">Am besten buchen Sie <strong>direkt bei uns</strong> – schnell, persönlich und ohne Vermittlungsgebühren.</p>
+    <header class="anna__bar">
+      <div class="anna__logo">Anna</div>
+      <nav class="anna__nav">
+        <span class="anna__lang"><b>DE</b> · EN</span>
+      </nav>
+    </header>
 
-    <div class="primary-block">
-      <p class="label">Direkt buchen</p>
-      <div class="btns">
-        <a class="btn btn-primary btn-lg" href="https://wa.me/4915792358806" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.045zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-          Per WhatsApp
+    <div class="anna__content">
+      <div class="anna__eyebrow"><span>Hotel <b class="anna__stars" aria-label="Drei-Sterne-Hotel">★★★</b> · Düsseldorf · Hilden</span></div>
+      <h1 class="anna__name"><span class="anna-mask"><span>Anna</span></span></h1>
+      <div class="anna__line"></div>
+      <p class="anna__tag">Unsere neue Website entsteht gerade. Bis dahin sind wir direkt für Sie da — persönlich, unkompliziert und zum besten Preis.</p>
+
+      <div class="anna__contact">
+        <a class="anna__btn" href="https://wa.me/4915792358806">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.4A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1-1.4-1-2.6 0-1.2.6-1.8.9-2.1.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.3.1.7-.1 1.2Z"/></svg>
+          WhatsApp
         </a>
-        <a class="btn btn-primary btn-lg" href="tel:+4915792358806">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a class="anna__btn" href="tel:+4915792358806">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v2a2 2 0 0 1-2 2A16 16 0 0 1 3 7a2 2 0 0 1 2-3Z"/></svg>
           Anrufen
         </a>
-        <a class="btn btn-primary btn-lg" href="mailto:anna@nova-hotels.de">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <a class="anna__btn" href="mailto:anna@nova-hotels.de">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
           E-Mail
         </a>
+        <span class="anna__ota">Auch auf <a href="https://www.booking.com/hotel/de/anna-hilden-hilden1.html" target="_blank" rel="noopener noreferrer">Booking.com</a> &amp; <a href="https://www.expedia.de/Hilden-Hotels-Hotel-Anna-Hilden.h120766128.Hotel-Information" target="_blank" rel="noopener noreferrer">Expedia</a></span>
       </div>
     </div>
 
-    <div class="alt-block">
-      <p class="label">Oder über unsere Buchungspartner</p>
-      <div class="btns">
-        <a class="btn btn-ghost btn-sm" href="https://www.booking.com/hotel/de/anna-hilden-hilden1.html" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/></svg>
-          Booking.com
-        </a>
-        <a class="btn btn-ghost btn-sm" href="https://www.expedia.de/Hilden-Hotels-Hotel-Anna-Hilden.h120766128.Hotel-Information" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/></svg>
-          Expedia
-        </a>
-      </div>
-    </div>
-
-    <div class="foot">
-      <a href="/impressum.html">Impressum</a><span class="sep">·</span><a href="/datenschutz.html">Datenschutz</a>
-      <span class="copy">© Hotel Anna · Hilden</span>
-    </div>
+    <footer class="anna__footer">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </footer>
   </main>
+
+<script>
+  (function () {
+    var root = document.getElementById('anna');
+    if (root) requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.add('is-in'); }); });
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.anna-slide'));
+    if (reduce || slides.length < 2) return;
+
+    var i = 0;
+    setInterval(function () {
+      slides[i].classList.remove('is-active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('is-active');
+    }, 6500);
+  })();
+</script>
 </body>
 </html>
