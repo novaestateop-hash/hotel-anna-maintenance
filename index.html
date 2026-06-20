@@ -46,7 +46,7 @@
   .anna-slide {
     position: absolute; inset: 0;
     background-size: cover; background-position: center;
-    filter: brightness(0.6) saturate(1.03);
+    filter: brightness(0.5) saturate(1.02);
     opacity: 0; transition: opacity 2.4s ease;
     will-change: opacity, transform;
     animation: anna-ken 26s ease-in-out infinite alternate;
@@ -63,8 +63,9 @@
   .anna__scrim {
     position: absolute; inset: 0; z-index: 1;
     background:
-      linear-gradient(180deg, rgba(26,20,16,.55) 0%, rgba(26,20,16,.05) 30%, rgba(26,20,16,.2) 58%, rgba(26,20,16,.9) 100%),
-      radial-gradient(120% 80% at 50% 120%, rgba(201,163,106,.22), transparent 60%);
+      linear-gradient(180deg, rgba(20,16,12,.62) 0%, rgba(20,16,12,.24) 22%, rgba(20,16,12,.56) 58%, rgba(20,16,12,.95) 100%),
+      linear-gradient(90deg, rgba(20,16,12,.58) 0%, rgba(20,16,12,.12) 48%, transparent 78%),
+      radial-gradient(120% 80% at 50% 120%, rgba(201,163,106,.15), transparent 60%);
   }
 
   /* ——— LEBENDIGES LICHT ——— */
@@ -94,11 +95,20 @@
     50%{transform:translate(2%,-3%)} 75%{transform:translate(-2%,-2%)} 100%{transform:translate(2%,3%)}
   }
 
+  /* ——— UI-GERÜST (Flex-Spalte + iOS-Safe-Areas → kein Abschneiden oben/unten) ——— */
+  .anna__ui {
+    position: absolute; inset: 0; z-index: 5;
+    display: flex; flex-direction: column;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: max(env(safe-area-inset-bottom), 6px);
+  }
+  .anna__body { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; justify-content: flex-end; }
+
   /* ——— TOPBAR ——— */
   .anna__bar {
-    position: absolute; z-index: 6; inset: 0 0 auto 0;
+    flex: 0 0 auto;
     display: flex; align-items: center; justify-content: space-between;
-    padding: clamp(18px, 3.4vw, 40px) clamp(20px, 5vw, 64px);
+    padding: clamp(16px, 3.4vw, 40px) clamp(20px, 5vw, 64px);
     opacity: 0; transform: translateY(-12px);
   }
   .anna__logo {
@@ -118,8 +128,7 @@
 
   /* ——— TEXTBLOCK (unten links) ——— */
   .anna__content {
-    position: absolute; z-index: 5;
-    left: clamp(20px, 5vw, 64px); bottom: clamp(40px, 9vh, 96px); right: clamp(20px, 5vw, 64px);
+    padding: 0 clamp(20px, 5vw, 64px) clamp(14px, 2.6vh, 30px);
   }
   .anna__eyebrow {
     font-size: clamp(11px, 1.2vw, 13px); letter-spacing: .42em; text-transform: uppercase;
@@ -163,9 +172,9 @@
 
   /* ——— FOOTER (Recht) ——— */
   .anna__footer {
-    position: absolute; z-index: 5; bottom: clamp(16px, 2.6vh, 26px);
-    right: clamp(20px, 5vw, 64px);
-    display: flex; gap: 18px; align-items: center;
+    flex: 0 0 auto;
+    display: flex; gap: 18px; align-items: center; justify-content: flex-end;
+    padding: clamp(6px, 1.2vh, 12px) clamp(20px, 5vw, 64px) clamp(8px, 1.6vh, 16px);
     font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
     opacity: 0;
   }
@@ -173,7 +182,7 @@
   .anna__footer a:hover { color: var(--col-gold); }
   .anna.is-in .anna__footer { opacity: 1; transition: opacity 1s ease 1.8s; }
   @media (max-width: 640px) {
-    .anna__footer { left: clamp(20px, 5vw, 64px); right: auto; bottom: 16px; }
+    .anna__footer { justify-content: flex-start; }
   }
 
   /* ——— ENTRANCE (einmalig beim Laden; Ambient läuft danach dauerhaft weiter) ——— */
@@ -185,8 +194,13 @@
   .anna.is-in .anna__contact { opacity: 1; transform: none; transition: opacity 1s ease 1.55s, transform 1s ease 1.55s; }
 
   @media (max-width: 640px) {
-    .anna__tag { max-width: 32ch; }
+    .anna__tag { max-width: 34ch; }
     .anna__lang { display: none; }
+    .anna__eyebrow { font-size: 10px; letter-spacing: .2em; gap: 9px; }
+    .anna__eyebrow::before { width: 18px; }
+    .anna__name { font-size: clamp(56px, 18vw, 92px); }
+    .anna__contact { gap: 10px; }
+    .anna__ota { flex-basis: 100%; margin-left: 0; margin-top: 2px; }
   }
 
   /* ——— REDUCED MOTION: ruhig, ein Standbild, kein Wechsel ——— */
@@ -214,6 +228,7 @@
     <div class="anna__glow"></div>
     <div class="anna__grain"></div>
 
+    <div class="anna__ui">
     <header class="anna__bar">
       <div class="anna__logo">Anna</div>
       <nav class="anna__nav">
@@ -221,6 +236,7 @@
       </nav>
     </header>
 
+    <div class="anna__body">
     <div class="anna__content">
       <div class="anna__eyebrow"><span>Hotel <b class="anna__stars" aria-label="Drei-Sterne-Hotel">★★★</b> · Düsseldorf · Hilden</span></div>
       <h1 class="anna__name"><span class="anna-mask"><span>Anna</span></span></h1>
@@ -243,11 +259,13 @@
         <span class="anna__ota">Auch auf <a href="https://www.booking.com/hotel/de/anna-hilden-hilden1.html" target="_blank" rel="noopener noreferrer">Booking.com</a> &amp; <a href="https://www.expedia.de/Hilden-Hotels-Hotel-Anna-Hilden.h120766128.Hotel-Information" target="_blank" rel="noopener noreferrer">Expedia</a></span>
       </div>
     </div>
+    </div>
 
     <footer class="anna__footer">
       <a href="impressum.html">Impressum</a>
       <a href="datenschutz.html">Datenschutz</a>
     </footer>
+    </div>
   </main>
 
 <script>
